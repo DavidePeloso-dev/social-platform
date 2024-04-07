@@ -21,7 +21,7 @@
     LEFT JOIN `likes`
     ON `likes`.`post_id` = `posts`.`id`
     GROUP BY `posts`.`id`  
-	ORDER BY `post_likes`  ASC
+	ORDER BY `post_likes`  ASC;
 ```
 ### Ordina gli utenti per il numero di media caricati (25)
 ```
