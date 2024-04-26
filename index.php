@@ -15,7 +15,16 @@ if ($connection && $connection->connect_error) {
 }
 
 $sql =
-    "SELECT DISTINCT `posts`.`id`,`posts`.`title`, `posts`.`tags`,JSON_ARRAYAGG(`medias`.`path`) AS `medias`, COUNT(`medias`.`path`) as media_count FROM `posts` LEFT JOIN `likes` ON `likes`.`post_id` = `posts`.`id` JOIN `media_post` ON `media_post`.`post_id` = `posts`.`id` JOIN `medias` ON `medias`.`id` = `media_post`.`media_id` WHERE `likes`.`post_id` IS NULL GROUP BY `posts`.`id`";
+    "SELECT DISTINCT `posts`.`id`,`posts`.`title`, `posts`.`tags`,JSON_ARRAYAGG(`medias`.`path`) AS `medias`, COUNT(`medias`.`path`) as media_count 
+    FROM `posts` 
+    LEFT JOIN `likes` 
+    ON `likes`.`post_id` = `posts`.`id` 
+    JOIN `media_post` 
+    ON `media_post`.`post_id` = `posts`.`id` 
+    JOIN `medias` 
+    ON `medias`.`id` = `media_post`.`media_id` 
+    WHERE `likes`.`post_id` IS NULL 
+    GROUP BY `posts`.`id`";
 
 $result = $connection->query($sql);
 /* var_dump($result->fetch_assoc());
@@ -68,7 +77,7 @@ $posts = [];
                             <div class="carousel-inner">
                                 <?php foreach ($post->medias as $i => $media) : ?>
                                     <div class="carousel-item <?php if ($i == 0) echo 'active' ?>">
-                                        <img style="width: 100%; aspect-ratio: 1;" src="./<?= $media ?>" class="d-block w-100" alt="<?= $post->title ?>">
+                                        <img style="width: 100%; aspect-ratio: 1;" src="./<?= $media ?>" class="d-block w-100 card-img-top" alt="<?= $post->title ?>">
                                     </div>
                                 <?php endforeach ?>
                             </div>
